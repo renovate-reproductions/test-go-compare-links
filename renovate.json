@@ -3,7 +3,14 @@
   "extends": [
     "config:recommended"
   ],
-  "prBodyDefinitions": {
-    "Change": "[`{{{displayFrom}}}` -> `{{{displayTo}}}`](https://cs.opensource.google/{{{replace '^golang\\.org' 'go' depName}}}/+/refs/tags/{{{currentValue}}}...refs/tags/{{{newValue}}})"
-  }
+  "packageRules": [
+    {
+      "description": "modify columns for golang.org/x packages",
+      "matchManagers": ["gomod"],
+      "prBodyDefinitions": {
+        "Package": "{{#if (containsString depName 'golang.org/x/')}}[{{{depName}}](https://pkg.go.dev/{{{depName}}){{else}}{{{depNameLinked}}}{{/if}}",
+        "Change": "{{#if (containsString depName 'golang.org/x/')}}[`{{{displayFrom}}}` -> `{{{displayTo}}}`](https://cs.opensource.google/{{{replace '^golang\\.org' 'go' depName}}}/+/refs/tags/{{{currentValue}}}...refs/tags/{{{newValue}}}){{else}}`{{{displayFrom}}}` -> `{{{displayTo}}}`{{/if}}"
+      }
+    }
+  ]
 }
