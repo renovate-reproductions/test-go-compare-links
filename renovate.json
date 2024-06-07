@@ -4,6 +4,6 @@
     "config:recommended"
   ],
   "prBodyDefinitions": {
-    "Change": "[`{{{displayFrom}}}` -> `{{{displayTo}}}`](https://cs.opensource.google/{{{depName}}}/+/refs/tags/{{{currentValue}}}...refs/tags/{{{newValue}}})"
+    "Change": "[`{{{displayFrom}}}` -> `{{{displayTo}}}`](https://cs.opensource.google/{{{replace '^golang\.org' 'go' depName}}}/+/refs/tags/{{{currentValue}}}...refs/tags/{{{newValue}}})"
   }
 }
