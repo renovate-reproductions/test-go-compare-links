@@ -5,11 +5,17 @@
   ],
   "packageRules": [
     {
-      "description": "modify columns for golang.org/x packages",
+      "description": "modify title column for golang.org/x packages",
+      "matchManagers": ["gomod"],
+      "prBodyDefinitions": {
+        "Package": "{{#if (containsString depName 'golang.org/x/')}}[{{{depName}}}](https://pkg.go.dev/{{{depName}}}){{else}}{{{depNameLinked}}}{{/if}}",
+      }
+    },
+    {
+      "description": "modify change column for golang.org/x packages",
       "matchManagers": ["gomod"],
       "matchUpdateTypes": ["major", "minor", "patch"],
       "prBodyDefinitions": {
-        "Package": "{{#if (containsString depName 'golang.org/x/')}}[{{{depName}}}](https://pkg.go.dev/{{{depName}}}){{else}}{{{depNameLinked}}}{{/if}}",
         "Change": "{{#if (containsString depName 'golang.org/x/')}}[`{{{displayFrom}}}` -> `{{{displayTo}}}`](https://cs.opensource.google/{{{replace '^golang\\.org' 'go' depName}}}/+/refs/tags/{{{currentValue}}}...refs/tags/{{{newValue}}}){{else}}`{{{displayFrom}}}` -> `{{{displayTo}}}`{{/if}}"
       }
     }
